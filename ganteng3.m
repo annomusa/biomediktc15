@@ -86,7 +86,7 @@ for i = 1 : length(srcFiles)
 
     stats = regionprops(imlabel,'all');
     % print stats(1);
-    index = stats(1);
+    % index = stats(1);
     a(i,1) = [stats.Area];
     a(i,2) = [stats.MajorAxisLength];
     a(i,3) = [stats.MinorAxisLength];
@@ -172,7 +172,7 @@ figure; imshow (baru)
 
 stats = regionprops(imlabel,'all');
 % print stats(1);
-index = stats(1);
+% index = stats(1);
 a(4,1) = [stats.Area];
 a(4,2) = [stats.MajorAxisLength];
 a(4,3) = [stats.MinorAxisLength];
