@@ -3,7 +3,7 @@
 clear all; close all
 
 %x = imread(uigetfile ({'*.jpg;*.jpeg;*.tif;*.ppm;*.bmp'})); 
-filename = ('D:\anno\7th\Biomedik\Progress 3\smear dataset\carcinoma\149143370-149143378-001.BMP');
+filename = ('.\smear dataset\carcinoma\149143370-149143378-003.BMP');
 he = imread(filename);
 
 % segmentasi color based start
@@ -20,10 +20,10 @@ nrows = size(ab,1);
 ncols = size(ab,2);
 ab = reshape(ab,nrows*ncols,2);
 
-nColors = 3;
+nColors = 2;
 % repeat the clustering 3 times to avoid local minima
 [cluster_idx, cluster_center] = kmeans(ab,nColors,'distance','sqEuclidean', ...
-                                      'Replicates',3);
+                                      'Replicates',20);
 
 pixel_labels = reshape(cluster_idx,nrows,ncols);
 imshow(pixel_labels,[]), title('image labeled by cluster index');
@@ -78,9 +78,11 @@ figure; imshow (baru)
 [imlabel, objnum] = bwlabel(baru);
 
 stats = regionprops(imlabel,'all');
+% print stats(1);
 index = stats(1);
 area1 = stats(1).Area; 
-width1 = stats(1).Width;
+% width1 = stats(1).Width;
 centroid1 = stats(1).Centroid;
 
+area1;
 index;
