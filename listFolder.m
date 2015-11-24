@@ -80,39 +80,44 @@ for j = 1 : length(listing)
 
             g = rgb2gray(blue_nuclei);
             imt = im2bw(g, graythresh(g));
-            % figure; imshow (imt);
+            figure; imshow(imt);
 
             % opening ukuran 50
-            baru = bwareaopen(imt,50);
-            baru = imopen(baru,strel('disk',1));
-            % figure; imshow (baru);
+            baru = bwareaopen(imt,50, 8);
+            imt2 = imclose(baru,strel('octagon',3));
+            figure; imshow(imt);
 
             % closing ukuran 50
-            baru = bwareaopen(imt,50);
-            baru = imclose(baru,strel('disk',1));
-            figure; imshow (baru);
+            baru2 = bwareaopen(imt2,50, 8);
+            imt3 = imopen(baru2,strel('octagon',3));
+            figure; imshow(imt3);
 
-            [imlabel, objnum] = bwlabel(baru);
+            [imlabel, objnum] = bwlabel(imt3);
 
             stats = regionprops(imlabel,'all');
             % print stats(1);
             % index = stats(1);
             b = [];
             
+            len = length(stats);
+            
             c = 0;
             d = 0;
             e = 0;
             f = 0;
-            for k = 1 : length(stats)
+            g = 0;
+            for k = 1 : len
                 c = c + stats(k).Area;
                 d = d + stats(k).MajorAxisLength;
                 e = e + stats(k).MinorAxisLength;
                 f = f + stats(k).Solidity;
+                g = g + stats(k).Perimeter;
             end
-            b = [b, c/length(stats)];
-            b = [b, d/length(stats)];
-            b = [b, e/length(stats)];
-            b = [b, f/length(stats)];
+            b = [b, c/len];
+            b = [b, d/len];
+            b = [b, e/len];
+            b = [b, f/len];
+            b = [b, g/len];
             
             a = [a, {b}];
         end
