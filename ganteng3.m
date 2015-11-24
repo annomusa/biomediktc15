@@ -14,10 +14,6 @@ for i = 1 : length(srcFiles)
     he = imread(filename);
 
     % segmentasi color based start
-    imshow(he), title('H&E image');
-    text(size(he,2),size(he,1)+15,...
-         'Image courtesy of Alan Partin, Johns Hopkins University', ...
-         'FontSize',7,'HorizontalAlignment','right');
 
     cform = makecform('srgb2lab');
     lab_he = applycform(he,cform);
@@ -43,11 +39,6 @@ for i = 1 : length(srcFiles)
         color(rgb_label ~= k) = 0;
         segmented_images{k} = color;
     end
-
-    imshow(segmented_images{1}), title('objects in cluster 1');
-
-    imshow(segmented_images{2}), title('objects in cluster 2');
-
     imshow(segmented_images{3}), title('objects in cluster 3');
 
     mean_cluster_value = mean(cluster_center,2);
@@ -64,13 +55,13 @@ for i = 1 : length(srcFiles)
     nuclei_labels = repmat(nuclei_labels,[1 1 3]);
     blue_nuclei = he;
     blue_nuclei(nuclei_labels ~= 1) = 0;
-    imshow(blue_nuclei), title('blue nuclei');
+    %imshow(blue_nuclei), title('blue nuclei');
 
     % segmentasi color based kelar
 
     g = rgb2gray(blue_nuclei);
     imt = im2bw(g, graythresh(g));
-    figure; imshow (imt);
+    %figure; imshow (imt);
 
     % opening ukuran 50
     baru = bwareaopen(imt,50);
@@ -81,7 +72,7 @@ for i = 1 : length(srcFiles)
     baru = bwareaopen(imt,50);
     baru = imclose(baru,strel('disk',1));
     figure; imshow (baru)
-
+    
     [imlabel, objnum] = bwlabel(baru);
 
     stats = regionprops(imlabel,'all');
@@ -92,7 +83,6 @@ for i = 1 : length(srcFiles)
     a(i,3) = [stats.MinorAxisLength];
 %    a(i,4) = [srcFiles(i).name];
 end
-
 
 
 %x = imread(uigetfile ({'*.jpg;*.jpeg;*.tif;*.ppm;*.bmp'})); 
@@ -177,4 +167,3 @@ a(4,1) = [stats.Area];
 a(4,2) = [stats.MajorAxisLength];
 a(4,3) = [stats.MinorAxisLength];
 %a(i,4) = [srcFiles(i).name];
-
