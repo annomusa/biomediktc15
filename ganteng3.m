@@ -74,3 +74,13 @@ figure; imshow (baru)
 baru = bwareaopen(imt,50);
 baru = imclose(baru,strel('disk',1));
 figure; imshow (baru)
+
+[imlabel, objnum] = bwlabel(baru);
+
+stats = regionprops(imlabel,'all');
+index = stats(1);
+area1 = stats(1).Area; 
+width1 = stats(1).Width;
+centroid1 = stats(1).Centroid;
+
+index;

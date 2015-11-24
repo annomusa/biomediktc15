@@ -2,13 +2,12 @@
 
 clear all; close all
 
-%x = imread(uigetfile ({'*.jpg;*.jpeg;*.tif;*.ppm;*.bmp'}));
+%x = imread(uigetfile ({'*.jpg;*.jpeg;*.tif;*.ppm;*.bmp'})); 
 filename = ('D:\anno\7th\Biomedik\Progress 3\smear dataset\carcinoma\149143370-149143378-001.BMP');
-
 he = imread(filename);
 
+% segmentasi color based start
 imshow(he), title('H&E image');
-
 text(size(he,2),size(he,1)+15,...
      'Image courtesy of Alan Partin, Johns Hopkins University', ...
      'FontSize',7,'HorizontalAlignment','right');
@@ -60,18 +59,20 @@ blue_nuclei = he;
 blue_nuclei(nuclei_labels ~= 1) = 0;
 imshow(blue_nuclei), title('blue nuclei');
 
+% segmentasi color based kelar
+
 g = rgb2gray(blue_nuclei);
 imt = im2bw(g, graythresh(g));
 figure; imshow (imt);
 
-baru = bwareaopen(imt,2);
+% opening ukuran 50
+baru = bwareaopen(imt,50);
 baru = imopen(baru,strel('disk',1));
 figure; imshow (baru)
 
-baru = bwareaopen(imt,2);
-baru = imopen(baru,strel('disk',1));
+% closing ukuran 50
+baru = bwareaopen(imt,50);
+baru = imclose(baru,strel('disk',1));
 figure; imshow (baru)
 
-baru = bwareaopen(imt,2);
-baru = imopen(baru,strel('disk',1));
-figure; imshow (baru)
+[imlabel, objnum] = bwlabel(baru);
