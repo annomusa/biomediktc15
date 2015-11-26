@@ -3,7 +3,8 @@ clear all; close all;
 myClass = load('class.mat');
 
 % testing data
-mySelectedPath = '.\smear dataset\carcinoma\149143370-149143378-001.BMP';
+%mySelectedPath = '.\smear dataset\carcinoma\149143370-149143378-001.BMP';
+mySelectedPath = '.\smear dataset\moderate displastic\148848523-148848538-001.BMP';
 
 [valueTesting] = analysTesting(mySelectedPath);
 
