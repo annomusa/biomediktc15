@@ -1,7 +1,12 @@
+function [vote, classification_result] = doClassification()
+
+%clear all; close all;
+
 myClass = load('class.mat');
 
 % testing data
-mySelectedPath = '.\smear dataset\carcinoma\149143370-149143378-001.BMP';
+%mySelectedPath = '.\smear dataset\carcinoma\149143370-149143378-001.BMP';
+%mySelectedPath = '.\smear dataset\moderate displastic\148848523-148848538-001.BMP';
 
 [valueTesting] = analysTesting(mySelectedPath);
 
@@ -14,9 +19,13 @@ for i = 1 : len
     curClass = theClass(i).value;
     lenInner = length(curClass);
     for j = 1 : lenInner
-        c.
+        c.class = theClass(i).class;
+        % get distance
+        [c.distance] = euclid(curClass(j), valueTesting);
+        classification = [classification, c];
     end
 end
 
-%myClass.value;
-%valueTesting;
+% voting
+[vote] = voting(classification, 3);
+result = vote(5).class;

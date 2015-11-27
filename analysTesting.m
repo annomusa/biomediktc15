@@ -61,23 +61,23 @@ function [value] = analysTesting(filename)
     nuclei_labels = repmat(nuclei_labels,[1 1 3]);
     blue_nuclei = he;
     blue_nuclei(nuclei_labels ~= 1) = 0;
-    imshow(blue_nuclei), title('blue nuclei');
+    %figure; imshow(blue_nuclei), title('blue nuclei');
 
     % segmentasi color based kelar
 
     g = rgb2gray(blue_nuclei);
     imt = im2bw(g, graythresh(g));
-    figure; imshow(imt);
+    %figure; imshow(imt);
 
     % opening ukuran 50
     baru = bwareaopen(imt,50, 8);
     imt2 = imclose(baru,strel('octagon',3));
-    figure; imshow(imt);
+    %figure; imshow(imt);
 
     % closing ukuran 50
     baru2 = bwareaopen(imt2,50, 8);
     imt3 = imopen(baru2,strel('octagon',3));
-    figure; imshow(imt3);
+    %figure; imshow(imt3);
 
     [imlabel, objnum] = bwlabel(imt3);
 
