@@ -1,4 +1,4 @@
-function [vote] = voting(classification_result, k)
+function [vote, un_sort_vote] = voting(classification_result, k)
     curVote = [];
     
     initClass = [ 'carcinoma          ';
@@ -46,6 +46,8 @@ function [vote] = voting(classification_result, k)
             end
         end
     end
+    
+    un_sort_vote = curVote;
     
     %% before sort
         Afields = fieldnames(curVote);

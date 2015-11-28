@@ -1,4 +1,4 @@
-function [result, vote, classification] = doClassification(mySelectedPath, K)
+function [result, un_sort_vote, valueTesting] = doClassification(mySelectedPath, K)
 
     %clear all; close all;
 
@@ -27,7 +27,7 @@ function [result, vote, classification] = doClassification(mySelectedPath, K)
     end
 
     % voting
-    [vote] = voting(classification, K);
+    [vote, un_sort_vote] = voting(classification, K);
     result = vote(5).class;
     
 end
